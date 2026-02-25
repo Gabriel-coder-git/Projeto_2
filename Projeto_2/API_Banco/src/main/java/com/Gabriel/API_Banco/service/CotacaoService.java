@@ -1,7 +1,11 @@
 package com.Gabriel.API_Banco.service;
 
 import java.time.LocalDate;
+import java.util.List;
 
+import com.Gabriel.API_Banco.dto.ListarCotacoesDTO;
+import com.Gabriel.API_Banco.dto.ListarLentesDTO;
+import com.Gabriel.API_Banco.dto.ListarProdutosDTO;
 import org.springframework.stereotype.Service;
 
 import com.Gabriel.API_Banco.dto.CriarCotacaoDTO;
@@ -14,6 +18,8 @@ import com.Gabriel.API_Banco.repository.CotacaoRepositorio;
 import com.Gabriel.API_Banco.repository.LojaRepositorio;
 import com.Gabriel.API_Banco.repository.ProdutoRepositorio;
 import com.Gabriel.API_Banco.repository.UsuarioRepositorio;
+
+import static java.util.stream.Collectors.toList;
 
 @Service
 public class CotacaoService {
@@ -29,6 +35,33 @@ public class CotacaoService {
         this.usuarioRepo = usuarioRepo;
         this.lojaRepo = lojaRepo;
         this.produtoService = produtoService;
+    }
+
+    public List<ListarCotacoesDTO> listarPorUsuario(Long idUsuario) {
+
+        return cotacaoRepo.findByUsuarioId(idUsuario)
+                .stream()
+                .map(cotacao -> {
+
+                    var produto = cotacao.getProduto();
+
+                    ListarProdutosDTO produtoDTO = new ListarProdutosDTO(
+                            produto.getNomeProduto(),
+                            produto.getLente().getId(),
+                            produto.getArmacao().getId(),
+                            produto.getGrauLenteDireita(),
+                            produto.getGrauLenteEsquerda(),
+                            produto.getValor(),
+                            produto.getPrazoEntregaDias()
+                    );
+
+                    return new ListarCotacoesDTO(
+                            cotacao.getUsuario().getId(),
+                            cotacao.getLoja().getId(),
+                            produtoDTO
+                    );
+                })
+                .toList();
     }
 
     public Cotacao criarCotacao(CriarCotacaoDTO dto) {
