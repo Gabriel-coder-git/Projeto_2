@@ -1,6 +1,7 @@
 package com.Gabriel.API_Banco.controller;
 
 import com.Gabriel.API_Banco.dto.CriarCotacaoDTO;
+import com.Gabriel.API_Banco.dto.ListarCotacoesDTO;
 import com.Gabriel.API_Banco.dto.ListarLentesDTO;
 import com.Gabriel.API_Banco.model.Cotacao;
 import com.Gabriel.API_Banco.service.CotacaoService;
