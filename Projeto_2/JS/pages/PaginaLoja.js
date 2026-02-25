@@ -104,10 +104,37 @@ function criarCardLente(lente) {
   return div;
 }
 
+function abrirModalProduto(produto, tipo) {
+  const modal = document.getElementById("modal-produto");
 
-function adicionarLenteACotacao(lente) {
-  adicionarProdutoCotacao(lente, "lente");
+  document.getElementById("produto-nome").textContent = produto.nome;
+  document.getElementById("produto-tipo").textContent = tipo;
+  document.getElementById("produto-marca").textContent = produto.marca || "";
+  document.getElementById("produto-modelo").textContent = produto.modelo || "";
+  document.getElementById("produto-material").textContent = produto.material || "";
+  document.getElementById("produto-descricao").textContent = produto.descricao || "";
+  document.getElementById("produto-preco").textContent =
+    `R$ ${produto.preco.toFixed(2)}`;
+
+  const btn = document.getElementById("btn-adicionar-cotacao");
+
+  const novoBtn = btn.cloneNode(true);
+  btn.replaceWith(novoBtn);
+
+  novoBtn.addEventListener("click", () => {
+    adicionarProdutoCotacao(produto, tipo);
+    modal.classList.remove("ativo");
+  });
+
+  modal.classList.add("ativo");
 }
+
+document
+  .getElementById("fechar-modal-produto")
+  ?.addEventListener("click", () => {
+    document.getElementById("modal-produto").classList.remove("ativo");
+  });
+  
 
 
 function criarCardArmacao(armacao) {
@@ -132,17 +159,15 @@ function criarCardArmacao(armacao) {
   return div;
 }
 
-function adicionarArmacaoACotacao(armacao) {
-  adicionarProdutoCotacao(armacao, "armacao");
-}
+
 
 /* =========================
    INICIALIZAÇÃO
 ========================= */
-
 document.addEventListener("DOMContentLoaded", () => {
   configurarHeader();
   carregarLoja();
   carregarProdutos();
-  fecharModal("modal-produto"); // fecha o modal ao carregar a página para evitar que fique aberto por engano
+
+  document.getElementById("modal-produto")?.classList.remove("ativo");
 });
