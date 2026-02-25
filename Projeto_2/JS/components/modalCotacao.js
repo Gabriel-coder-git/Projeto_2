@@ -41,13 +41,27 @@ export function alternarCotacao() {
 // Funções internas
 // ------------------------------
 function atualizarResumo() {
-    spanLente.textContent = lenteSelecionada
-        ? `Lente: ${lenteSelecionada.nome} (R$ ${lenteSelecionada.preco.toFixed(2)})`
+    spanLente.innerHTML = lenteSelecionada
+        ? `Lente: ${lenteSelecionada.nome} 
+           <button id="remover-lente">✕</button>`
         : "Lente: nenhuma";
 
-    spanArmacao.textContent = armacaoSelecionada
-        ? `Armação: ${armacaoSelecionada.nome} (R$ ${armacaoSelecionada.preco.toFixed(2)})`
+    spanArmacao.innerHTML = armacaoSelecionada
+        ? `Armação: ${armacaoSelecionada.nome} 
+           <button id="remover-armacao">✕</button>`
         : "Armação: nenhuma";
+
+    document.getElementById("remover-lente")?.addEventListener("click", () => {
+        lenteSelecionada = null;
+        atualizarResumo();
+        atualizarBotao();
+    });
+
+    document.getElementById("remover-armacao")?.addEventListener("click", () => {
+        armacaoSelecionada = null;
+        atualizarResumo();
+        atualizarBotao();
+    });
 }
 
 function atualizarBotao() {
@@ -86,8 +100,8 @@ formCotacao?.addEventListener("submit", async (event) => {
         return;
     }
 
-    if (!lenteSelecionada && !armacaoSelecionada) {
-        alert("Selecione pelo menos um produto para cotar.");
+    if (!lenteSelecionada || !armacaoSelecionada) {
+        alert("Selecione lente e armação para solicitar cotação.");
         return;
     }
 
