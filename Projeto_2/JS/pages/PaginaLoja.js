@@ -3,6 +3,9 @@ import { buscarLojaPorId } from "../core/loja.js";
 import { listarArmacoesPorLoja, listarLentesPorLoja } from "../core/produtos.js";
 import { adicionarProdutoCotacao } from "../components/modalCotacao.js";
 
+/* =========================
+   VISUALIZAÇÃO DA PÁGINA
+========================= */
 function getIdDaUrl() {
   const params = new URLSearchParams(window.location.search);
   return params.get("id");
@@ -72,6 +75,10 @@ function renderizarProdutos(lentes, armacoes) {
   }
 }
 
+/* =========================
+   LÓGICA DOS PRODUTOS
+========================= */
+
 function criarCardLente(lente) {
   const div = document.createElement("div");
   div.classList.add("card-produto");
@@ -89,6 +96,11 @@ function criarCardLente(lente) {
   return div;
 }
 
+function adicionarLenteACotacao(lente) {
+  adicionarProdutoCotacao(lente, "lente");
+}
+
+
 function criarCardArmacao(armacao) {
   const div = document.createElement("div");
   div.classList.add("card-produto");
@@ -105,6 +117,14 @@ function criarCardArmacao(armacao) {
 
   return div;
 }
+
+function adicionarArmacaoACotacao(armacao) {
+  adicionarProdutoCotacao(armacao, "armacao");
+}
+
+/* =========================
+   INICIALIZAÇÃO
+========================= */
 
 document.addEventListener("DOMContentLoaded", () => {
   configurarHeader();
