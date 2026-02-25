@@ -10,3 +10,9 @@ export async function criarCotacao(dadosCotacao) {
     if (!response.ok) throw new Error(`Erro na requisição: ${response.status}`);
     return response.json();
 }
+
+export async function listarCotacoesPorUsuario(idUsuario) {
+    const response = await fetch(`${API}/listarCotacoesPU/${idUsuario}`);
+    if (!response.ok) throw new Error(`Erro na requisição: ${response.status}`);
+    return response.json();
+}
