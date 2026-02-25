@@ -8,7 +8,7 @@
 </head>
 
 <button id="btn-cotacao" class="btn-cotacao-flutuante">
-  🧾 Cotação
+    🧾 Cotação
 </button>
 
 <body>
@@ -36,65 +36,85 @@
 
     </section>
 
+    <div id="modal-cotacao" class="modal-cotacao">
+        <div class="modal-cotacao-content">
+
+            <button id="fechar-modal-cotacao" class="fechar-modal">✕</button>
+
+            <h2>Cotação</h2>
+
+            <div class="resumo-produtos">
+                <div id="Lente"></div>
+                <div id="Armacao"></div>
+            </div>
+
+            <form id="form-cotacao">
+
+                <label>
+                    Grau esquerdo
+                    <input id="grau-esq" type="number" step="0.25">
+                </label>
+
+                <label>
+                    Grau direito
+                    <input id="grau-dir" type="number" step="0.25">
+                </label>
+
+                <label>
+                    Nome
+                    <input id="edit-nome-usuario" required>
+                </label>
+
+                <label>
+                    Email
+                    <input id="edit-email-usuario" type="email" required>
+                </label>
+
+                <button type="submit" class="button">Enviar cotação</button>
+            </form>
+
+        </div>
+    </div>
+
+    <div id="modal-produto" class="modal-produto">
+        <div class="modal-produto-content">
+
+            <button id="fechar-modal-produto">✕</button>
+
+
+            <span id="produto-nome"></span>
+            <span id="produto-tipo"></span>
+
+            <div class="produto-info-linha">
+                <div class="produto-info-item">
+                    <label>Marca:</label>
+                    <span id="produto-marca"></span>
+                </div>
+
+                <div class="produto-info-item">
+                    <label>Modelo:</label>
+                    <span id="produto-modelo"></span>
+                </div>
+
+                <div class="produto-info-item">
+                    <label>Material:</label>
+                    <span id="produto-material"></span>
+                </div>
+            </div>
+
+            <span id="produto-descricao"></span>
+            <span id="produto-preco"></span>
+
+            <button id="btn-adicionar-cotacao">
+                Adicionar à cotação
+            </button>
+
+        </div>
+    </div>
+
 </body>
 
-<div id="modal-cotacao" class="modal-cotacao">
-    <div class="modal-cotacao-content">
 
-        <button id="fechar-modal-cotacao" class="fechar-modal">✕</button>
-
-        <h2>Cotação</h2>
-
-        <div class="resumo-produtos">
-            <div id="Lente"></div>
-            <div id="Armacao"></div>
-        </div>
-
-        <form id="form-cotacao">
-
-            <label>
-                Grau esquerdo
-                <input id="grau-esq" type="number" step="0.25">
-            </label>
-
-            <label>
-                Grau direito
-                <input id="grau-dir" type="number" step="0.25">
-            </label>
-
-            <label>
-                Nome
-                <input id="edit-nome-usuario" required>
-            </label>
-
-            <label>
-                Email
-                <input id="edit-email-usuario" type="email" required>
-            </label>
-
-            <button type="submit" class="button">Enviar cotação</button>
-        </form>
-
-    </div>
-</div>
-
-<div id="modal-produto" class="modal-produto">
-    <div class="modal-produto-content">
-
-        <button id="fechar-modal-produto" class="fechar-modal">✕</button>
-
-        <span id="produto-nome"></span>
-        <span id="produto-tipo"></span>
-        <span id="produto-marca"></span>
-        <span id="produto-modelo"></span>
-        <span id="produto-material"></span>
-        <span id="produto-descricao"></span>
-        <span id="produto-preco"></span>
-
-        <button id="btn-adicionar-cotacao">Adicionar à cotação</button>
-
-    </div>
-</div>
 
 </section>
 
