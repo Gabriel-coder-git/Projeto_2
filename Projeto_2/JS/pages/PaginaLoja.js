@@ -2,6 +2,7 @@ import { configurarHeader } from "../components/header.js";
 import { buscarLojaPorId } from "../core/loja.js";
 import { listarArmacoesPorLoja, listarLentesPorLoja } from "../core/produtos.js";
 import { adicionarProdutoCotacao } from "../components/modalCotacao.js";
+import { abrirModal,fecharModal } from "../components/modals.js";
 
 /* =========================
    VISUALIZAÇÃO DA PÁGINA
@@ -87,14 +88,22 @@ function criarCardLente(lente) {
     <h3>${lente.nome}</h3>
     <p><strong>Preço:</strong> R$ ${lente.preco.toFixed(2)}</p>
     <p><strong>Descrição:</strong> ${lente.descricao || ""}</p>
+
+    <button class="btn-cotar">+ Cotar</button>
   `;
 
-  div.addEventListener("click", () => {
+  // clique no card → abre modal
+  div.addEventListener("click", () => abrirModalProduto(lente, "lente"));
+
+  // botão → cotação direta
+  div.querySelector(".btn-cotar").addEventListener("click", (e) => {
+    e.stopPropagation(); // não abrir modal
     adicionarProdutoCotacao(lente, "lente");
   });
 
   return div;
 }
+
 
 function adicionarLenteACotacao(lente) {
   adicionarProdutoCotacao(lente, "lente");
@@ -109,9 +118,14 @@ function criarCardArmacao(armacao) {
     <h3>${armacao.nome}</h3>
     <p><strong>Preço:</strong> R$ ${armacao.preco.toFixed(2)}</p>
     <p><strong>Descrição:</strong> ${armacao.descricao || ""}</p>
+
+    <button class="btn-cotar">+ Cotar</button>
   `;
 
-  div.addEventListener("click", () => {
+  div.addEventListener("click", () => abrirModalProduto(armacao, "armacao"));
+
+  div.querySelector(".btn-cotar").addEventListener("click", (e) => {
+    e.stopPropagation();
     adicionarProdutoCotacao(armacao, "armacao");
   });
 
@@ -130,4 +144,5 @@ document.addEventListener("DOMContentLoaded", () => {
   configurarHeader();
   carregarLoja();
   carregarProdutos();
+  fecharModal("modal-produto"); // fecha o modal ao carregar a página para evitar que fique aberto por engano
 });
