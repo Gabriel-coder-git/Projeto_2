@@ -6,6 +6,7 @@ import java.util.List;
 import com.Gabriel.API_Banco.dto.ListarCotacoesDTO;
 import com.Gabriel.API_Banco.dto.ListarLentesDTO;
 import com.Gabriel.API_Banco.dto.ListarProdutosDTO;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.Gabriel.API_Banco.dto.CriarCotacaoDTO;
@@ -18,6 +19,7 @@ import com.Gabriel.API_Banco.repository.CotacaoRepositorio;
 import com.Gabriel.API_Banco.repository.LojaRepositorio;
 import com.Gabriel.API_Banco.repository.ProdutoRepositorio;
 import com.Gabriel.API_Banco.repository.UsuarioRepositorio;
+import org.springframework.web.server.ResponseStatusException;
 
 import static java.util.stream.Collectors.toList;
 
@@ -65,6 +67,16 @@ public class CotacaoService {
     }
 
     public Cotacao criarCotacao(CriarCotacaoDTO dto) {
+
+        if (dto.getProduto().getIdLente() == null ||
+                dto.getProduto().getIdArmacao() == null) {
+
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "Cotação deve conter lente e armação"
+            );
+        }
+
 
         Usuario usuario = usuarioRepo.findById(dto.getIdUsuario())
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
