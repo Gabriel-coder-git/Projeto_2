@@ -3,6 +3,9 @@ import { getUsuarioLogado } from "../core/auth.js";
 import { getLojaAtual } from "../core/loja.js";
 import { listarLojas } from "../core/loja.js";
 import { listarCotacoesPorUsuario, criarCardCotacao, chamarEstilizacao, initScrollCotacoes } from "../core/cotacoes.js";
+import { initBuscaLojas, chamarEstilizacaoSearchBar } from "../components/searchBar.js";
+
+let lojasCache = [];
 
 
 
@@ -47,12 +50,18 @@ function configurarTela() {
 async function carregarLojas() {
     try {
         const lojas = await listarLojas();
+        lojasCache = lojas;
+
         renderizarLojas(lojas);
+        initBuscaLojas(lojas);
+
     } catch (error) {
         console.error(error);
         alert("Erro ao carregar lojas");
     }
 }
+
+window.renderizarLojas = renderizarLojas;
 
 function renderizarLojas(lojas) {
     const container = document.getElementById("lista-lojas");
@@ -105,6 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
     carregarCotacoes(getUsuarioLogado().id);
     chamarEstilizacao();
     initScrollCotacoes();
+    chamarEstilizacaoSearchBar();
 });
 
 
