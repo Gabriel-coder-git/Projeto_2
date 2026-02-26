@@ -59,8 +59,17 @@ public class CotacaoService {
 
                     return new ListarCotacoesDTO(
                             cotacao.getUsuario().getId(),
-                            cotacao.getLoja().getId(),
-                            produtoDTO
+                            cotacao.getLoja(),
+                            produtoDTO,
+                            cotacao.getValorBase(),
+                            cotacao.getValorFinal(),
+                            cotacao.getPrazoEntregaConfirmado(),
+                            cotacao.getDataCriacao(),
+                            cotacao.getDataResposta(),
+                            cotacao.getDataAprovacao(),
+                            cotacao.getObservacaoCliente(),
+                            cotacao.getObservacaoLoja(),
+                            cotacao.getStatus()
                     );
                 })
                 .toList();
