@@ -50,6 +50,7 @@ export function criarCardCotacao(cotacao) {
         <h5 class="card-title mb-2">${nomeProduto}</h5>
         <h6 class="card-subtitle mb-3 text-muted">Loja ${loja.nome}</h6>
 
+        <div class="dados"
         <p class="mb-1"><strong>Status:</strong> ${status}</p>
 
         <p class="mb-1">
@@ -59,6 +60,7 @@ export function criarCardCotacao(cotacao) {
 
         <p class="mb-1"><strong>Valor:</strong> R$ ${valorBase}</p>
         <p class="mb-1"><strong>Prazo:</strong> ${prazo} dias</p>
+        </div>
     `;
 
     card.appendChild(cardBody);
