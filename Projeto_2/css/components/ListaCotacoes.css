@@ -28,15 +28,16 @@
 .lista-cotacoes .card {
     min-width: 240px;
     max-width: 240px;
-    border-radius: 14px;
-    border: 1px solid #e6e6e6;
+    border-radius: 10%;
+    border: 2px solid #e6e6e6;
     background: #fff;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .lista-cotacoes .card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+    box-shadow: 0 8px 18px rgba(0, 17, 26, 0.066);
+    cursor: pointer;
 }
 
 .lista-cotacoes .card-body {
@@ -44,18 +45,33 @@
 }
 
 .lista-cotacoes .card-title {
-    font-size: 1rem;
+    margin-top: 5%;
+    margin-bottom: 7%;
+    padding-top: 0px;
+    font-size: 1.3rem;
     font-weight: 600;
 }
 
 .lista-cotacoes .card-subtitle {
-    font-size: 0.85rem;
+    padding-top: 0px;
+    margin-top: 0px;
+    font-size: 1rem;
     color: #777;
+    margin-bottom: 0%;
 }
 
 .lista-cotacoes p {
-    font-size: 0.85rem;
+    font-size: 1rem;
     margin-bottom: 4px;
+}
+
+.lista-cotacoes .dados {
+    margin-top: 10px;
+    border-top: 1px solid #eee;
+    padding-top: 3%;
+    background-color: #f9f9f9;
+    padding-bottom: 3%;
+    border-radius: 5%;
 }
 
 /* ===== BOTÕES ===== */
