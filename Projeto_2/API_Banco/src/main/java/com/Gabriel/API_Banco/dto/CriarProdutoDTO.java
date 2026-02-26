@@ -17,4 +17,5 @@ public class CriarProdutoDTO {
     private BigDecimal valor;
     private Integer prazoEntrega;
 
+
 }
