@@ -2,6 +2,8 @@ import { configurarHeader } from "../components/header.js";
 import { getUsuarioLogado } from "../core/auth.js";
 import { getLojaAtual } from "../core/loja.js";
 import { listarLojas } from "../core/loja.js";
+import { listarCotacoesPorUsuario, criarCardCotacao, chamarEstilizacao, initScrollCotacoes } from "../core/cotacoes.js";
+
 
 
 function esconderTodosOsBlocos() {
@@ -84,10 +86,25 @@ function criarCardLoja(loja) {
     return div;
 }
 
+async function carregarCotacoes(idUsuario) {
+    const container = document.getElementById("lista-cotacoes");
+    container.innerHTML = "";
+
+    const cotacoes = await listarCotacoesPorUsuario(idUsuario);
+
+    cotacoes.forEach(c => {
+        const card = criarCardCotacao(c);
+        container.appendChild(card);
+    });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     configurarHeader();
     configurarTela();
     carregarLojas();
+    carregarCotacoes(getUsuarioLogado().id);
+    chamarEstilizacao();
+    initScrollCotacoes();
 });
 
 
