@@ -1,5 +1,6 @@
 package com.Gabriel.API_Banco.controller;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.Gabriel.API_Banco.model.Usuario;
 import com.Gabriel.API_Banco.service.UsuarioService;
+import org.springframework.web.multipart.MultipartFile;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -75,5 +77,16 @@ public class UsuarioController {
         s.deletarUsuario(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping("/setarFotoPerfil/{id}")
+    public ResponseEntity<String> uploadFoto(@PathVariable Long id,@RequestParam("file") MultipartFile file)
+            throws IOException {
+
+        String url = s.atualizarFoto(id, file);
+
+        return ResponseEntity.ok(url);
+    }
+
+
 
 }
