@@ -1,5 +1,6 @@
 package com.Gabriel.API_Banco.service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,18 +11,20 @@ import org.springframework.stereotype.Service;
 import com.Gabriel.API_Banco.model.Usuario;
 import com.Gabriel.API_Banco.repository.UsuarioRepositorio;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class UsuarioService {
 
     private final UsuarioRepositorio r;
     private final LojaRepositorio lr;
+    private final ImageService imageService;
 
-    public UsuarioService(UsuarioRepositorio r, LojaRepositorio lr) {
+    public UsuarioService(UsuarioRepositorio r, LojaRepositorio lr, ImageService imageService) {
         this.r = r;
         this.lr = lr;
+        this.imageService = imageService;
     }
-
 
 
     public Usuario salvar(Usuario usuario) {
@@ -62,5 +65,21 @@ public class UsuarioService {
 
         r.delete(usuario);
     }
+
+    //IMAGENSSSSSSS FINALMENTEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE//
+
+    public String atualizarFoto(Long usuarioId, MultipartFile file) throws IOException {
+
+        Usuario usuario = r.findById(usuarioId)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+        String imageUrl = imageService.uploadProfileImage(file);
+
+        usuario.setFotoUrl(imageUrl);
+        r.save(usuario);
+
+        return imageUrl;
+    }
+
 
 }
