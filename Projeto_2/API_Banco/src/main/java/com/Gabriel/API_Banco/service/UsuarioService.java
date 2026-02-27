@@ -81,5 +81,11 @@ public class UsuarioService {
         return imageUrl;
     }
 
+    public String getFotoPerfil(Long id){
+        Usuario usuario = r.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+        return usuario.getFotoUrl();
+    }
 
 }
