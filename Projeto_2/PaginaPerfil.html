@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>Página Perfil</title>
     <link rel="stylesheet" href="css/pages/PaginaPerfil.css">
+    <link rel="stylesheet" href="css/components/FotoPerfil.css">
 </head>
 
 <body>
@@ -18,12 +19,23 @@
 
         <!-- seção usuário, sempre mostrar -->
         <section id="secao-usuario" class="perfil-bloco">
+
             <div class="perfil-header">
                 <h2 class="titulo-perfil">Perfil do Usuário</h2>
                 <button id="editar-perfil" class="button button-icon" title="Editar informações do usuário">
                     <img src="imgs/pngpencil.png" class="icon-pencil">
                 </button>
             </div>
+
+            <div class="foto-perfil-area">
+                <img id="fotoPerfil" src="" alt="Foto de Perfil">
+
+                <form id="form-foto-perfil">
+                    <input type="file" id="inputFoto" accept="image/*" required>
+                    <button type="submit">Salvar nova foto</button>
+                </form>
+            </div>
+
             <div class="info-usuario">
                 <p><strong>Nome:</strong> <span id="nomeUsuario"></span></p>
                 <p><strong>Email:</strong> <span id="emailUsuario"></span></p>
@@ -108,7 +120,7 @@
     </section>
 
     <!-- Administração -->
-    
+
     <section id="secao-admin" class="barra-vertical">
 
         <h3 class="titulo-secao">Administração</h3>
@@ -203,6 +215,7 @@
     </div>
 </div>
 <script type="module" src="js/pages/PaginaPerfil.js"></script>
+<script type="module" src="js/core/imgs.js"></script>
 <!--
 <script src="js/pages/ListaUsuarios.js"></script>
 <script type="module" src="JS/components/header.js"></script>
@@ -211,5 +224,6 @@
 
 <script src="js/pages/editarLoja.js"></script>
 <script src="js/pages/editarPerfil.js"></script>
---> 
+-->
+
 </html>
