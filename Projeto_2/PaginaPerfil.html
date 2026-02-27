@@ -27,19 +27,21 @@
                 </button>
             </div>
 
-            <div class="foto-perfil-area">
-                <img id="fotoPerfil" src="" alt="Foto de Perfil">
+            <div class="dados-usuario">
+                <div class="foto-perfil-area">
+                    <img id="fotoPerfil" src="" alt="Foto de Perfil">
 
-                <form id="form-foto-perfil">
-                    <input type="file" id="inputFoto" accept="image/*" required>
-                    <button type="submit">Salvar nova foto</button>
-                </form>
-            </div>
+                    <form id="form-foto-perfil">
+                        <input type="file" id="inputFoto" accept="image/*" required>
+                        <button type="submit">Salvar nova foto</button>
+                    </form>
+                </div>
 
-            <div class="info-usuario">
-                <p><strong>Nome:</strong> <span id="nomeUsuario"></span></p>
-                <p><strong>Email:</strong> <span id="emailUsuario"></span></p>
-                <p><strong>Tipo de Usuário:</strong> <span id="tipoUsuario"></span></p>
+                <div class="info-usuario">
+                    <p><strong>Nome:</strong> <span id="nomeUsuario"></span></p>
+                    <p><strong>Email:</strong> <span id="emailUsuario"></span></p>
+                    <p><strong>Tipo de Usuário:</strong> <span id="tipoUsuario"></span></p>
+                </div>
             </div>
         </section>
 
@@ -66,18 +68,22 @@
 
         <!-- seção loja, mostrar quando o usuário for vendedor -->
         <section id="secao-loja" class="perfil-bloco">
+
             <div class="perfil-header">
                 <h2 class="titulo-perfil">Minha Loja</h2>
                 <button id="editar-loja" class="button button-icon" title="Editar informações da loja">
                     <img src="imgs/pngpencil.png" class="icon-pencil">
                 </button>
             </div>
-            <div class="info-loja">
-                <p><strong>Nome:</strong> <span id="nomeLoja"></span></p>
-                <p><strong>Email:</strong> <span id="emailLoja"></span></p>
-                <p><strong>CNPJ:</strong> <span id="cnpjLoja"></span></p>
-                <p><strong>Endereço:</strong> <span id="enderecoLoja"></span></p>
-                <p><strong>CEP:</strong> <span id="cepLoja"></span></p>
+
+            <div class="dados-loja">
+                <div class="info-loja">
+                    <p><strong>Nome:</strong> <span id="nomeLoja"></span></p>
+                    <p><strong>Email:</strong> <span id="emailLoja"></span></p>
+                    <p><strong>CNPJ:</strong> <span id="cnpjLoja"></span></p>
+                    <p><strong>Endereço:</strong> <span id="enderecoLoja"></span></p>
+                    <p><strong>CEP:</strong> <span id="cepLoja"></span></p>
+                </div>
             </div>
         </section>
 
@@ -117,6 +123,13 @@
 
     <section id="secao-cotacoes" class="products-carousel">
         <h2 class="titulo-secao">Cotações Recentes</h2>
+        <div class="cotacoes-wrapper">
+            <button class="scroll-btn left" id="scroll-left">‹</button>
+
+            <div id="lista-cotacoes" class="lista-cotacoes"></div>
+
+            <button class="scroll-btn right" id="scroll-right">›</button>
+        </div>
     </section>
 
     <!-- Administração -->
@@ -215,7 +228,6 @@
     </div>
 </div>
 <script type="module" src="js/pages/PaginaPerfil.js"></script>
-<script type="module" src="js/core/imgs.js"></script>
 <!--
 <script src="js/pages/ListaUsuarios.js"></script>
 <script type="module" src="JS/components/header.js"></script>
