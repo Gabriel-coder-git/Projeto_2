@@ -7,6 +7,7 @@ import java.util.Optional;
 import com.Gabriel.API_Banco.dto.EditarUsuarioDTO;
 import com.Gabriel.API_Banco.dto.ListarLojasDTO;
 import com.Gabriel.API_Banco.dto.ListarUsuariosDTO;
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -84,6 +85,12 @@ public class UsuarioController {
 
         String url = s.atualizarFoto(id, file);
 
+        return ResponseEntity.ok(url);
+    }
+
+    @GetMapping("/getFotoPerfil/{id}")
+    public ResponseEntity<String> getFoto(@PathVariable Long id){
+        String url = s.getFotoPerfil(id);
         return ResponseEntity.ok(url);
     }
 
