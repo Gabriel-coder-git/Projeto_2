@@ -111,10 +111,12 @@ document.addEventListener("DOMContentLoaded", () => {
     configurarHeader();
     configurarTela();
     carregarLojas();
-    carregarCotacoes(getUsuarioLogado().id);
-    chamarEstilizacao();
-    initScrollCotacoes();
+
     chamarEstilizacaoSearchBar();
+
+    chamarEstilizacao();
+    initScrollCotacoes();    
+    carregarCotacoes(getUsuarioLogado().id);
 });
 
 
