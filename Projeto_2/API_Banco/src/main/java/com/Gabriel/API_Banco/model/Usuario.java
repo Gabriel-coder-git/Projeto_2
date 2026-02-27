@@ -37,4 +37,7 @@ public class Usuario {
     @JsonIgnore
     private List<Produto> produtos;
 
+    @Column(name = "url_foto")
+    private String fotoUrl;
+
 }
