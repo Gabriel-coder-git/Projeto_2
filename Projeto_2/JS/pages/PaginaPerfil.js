@@ -7,6 +7,8 @@ import { criarCardUsuario } from "../components/cards.js";
 import { criarCardLoja } from "../components/cards.js";
 import { configurarHeader } from "../components/header.js";
 import { getLojaDoUsuario } from "../core/loja.js";
+import { carregarFotoUsuario, salvarFotoPerfil } from "../core/imgs.js";
+import { listarCotacoesPorUsuario, criarCardCotacao, chamarEstilizacao, initScrollCotacoes } from "../core/cotacoes.js";
 
 //===================================INICIALIZAÇÃO DE VARIÁVEIS PRINCIPAIS=====================================================//
 
@@ -284,6 +286,20 @@ document
     }
 });
 
+//===================================COTAÇÕES=====================================================//
+
+async function carregarCotacoes(idUsuario) {
+    const container = document.getElementById("lista-cotacoes");
+    container.innerHTML = "";
+
+    const cotacoes = await listarCotacoesPorUsuario(idUsuario);
+
+    cotacoes.forEach(c => {
+        const card = criarCardCotacao(c);
+        container.appendChild(card);
+    });
+}
+
 
 //===================================INICIALIZADOR=====================================================//
 
@@ -291,23 +307,25 @@ document.addEventListener("DOMContentLoaded", init);
 
 async function init() {
     usuario = await getUsuarioLogado();
-    console.log("Usuário logado:", usuario);
 
     if (!usuario) return;
 
     if (usuario.tipoUsuario === "Vendedor" || usuario.tipoUsuario === "Admin") {
-    loja = await getLojaDoUsuario(usuario);
-    usuario.loja = loja;
-
-    console.log("Loja do usuário:", loja);
-    } else {
-        console.log("Usuário não é vendedor ou admin, pulando busca de loja.");
+        loja = await getLojaDoUsuario(usuario);
+        usuario.loja = loja;
     }
-
 
     configurarHeader();
     await configurarTela();
     configurarEventos();
     preencherInformacoesUsuario();
     preencherInformacoesLoja();
+
+    //Funções de imagem de perfil
+    carregarFotoUsuario(usuario);
+    salvarFotoPerfil();
+    
+    chamarEstilizacao();
+    initScrollCotacoes();
+    carregarCotacoes(getUsuarioLogado().id);
 }
