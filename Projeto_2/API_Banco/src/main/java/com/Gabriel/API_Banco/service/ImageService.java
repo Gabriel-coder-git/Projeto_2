@@ -1,5 +1,6 @@
 package com.Gabriel.API_Banco.service;
 
+import com.Gabriel.API_Banco.model.Usuario;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import org.springframework.stereotype.Service;
@@ -48,4 +49,5 @@ public class ImageService {
             throw new RuntimeException("Formato inválido. Apenas PNG e JPG permitidos.");
         }
     }
+
 }
