@@ -4,10 +4,13 @@ import com.Gabriel.API_Banco.dto.*;
 import com.Gabriel.API_Banco.model.Armacao;
 import com.Gabriel.API_Banco.model.Lente;
 import com.Gabriel.API_Banco.service.ArmacaoService;
+import com.Gabriel.API_Banco.service.ImageService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
@@ -17,9 +20,11 @@ import java.util.List;
 public class ArmacaoController {
 
     private final ArmacaoService as;
+    private final ImageService imageService;
 
-    public ArmacaoController(ArmacaoService as){
+    public ArmacaoController(ArmacaoService as,ImageService imageService){
         this.as = as;
+        this.imageService = imageService;
     }
 
     //CRIAR ARMAÇÃO
@@ -55,5 +60,14 @@ public class ArmacaoController {
     public ResponseEntity<Void> deletarArmacao(@PathVariable Long id) {
         as.deletarArmacao(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/{id}/foto")
+    public ResponseEntity<String> uploadFotoArmacao(@PathVariable Long id,@RequestParam("file") MultipartFile file
+    ) throws IOException {
+
+        String url = as.atualizarFotoArmacao(id, file);
+
+        return ResponseEntity.ok(url);
     }
 }
