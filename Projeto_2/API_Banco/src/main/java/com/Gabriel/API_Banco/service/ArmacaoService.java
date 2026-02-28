@@ -8,7 +8,9 @@ import com.Gabriel.API_Banco.model.Loja;
 import com.Gabriel.API_Banco.repository.ArmacaoRepositorio;
 import com.Gabriel.API_Banco.repository.LojaRepositorio;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 
@@ -17,10 +19,12 @@ public class ArmacaoService {
 
     private final ArmacaoRepositorio ar;
     private final LojaRepositorio lojar;
+    private final ImageService imageService;
 
-    public ArmacaoService(ArmacaoRepositorio ar, LojaRepositorio lojar){
+    public ArmacaoService(ArmacaoRepositorio ar, LojaRepositorio lojar, ImageService imageService){
         this.ar = ar;
         this.lojar = lojar;
+        this.imageService = imageService;
     }
 
     public Armacao criarArmacao(CriarArmacaoDTO dto){
@@ -74,7 +78,8 @@ public class ArmacaoService {
                         armacao.getModelo(),
                         armacao.getMaterial(),
                         armacao.getDescricao(),
-                        armacao.getPreco()
+                        armacao.getPreco(),
+                        armacao.getFotoUrl()
                 ))
                 .toList();
     }
@@ -89,9 +94,24 @@ public class ArmacaoService {
                         armacao.getModelo(),
                         armacao.getMaterial(),
                         armacao.getDescricao(),
-                        armacao.getPreco()
+                        armacao.getPreco(),
+                        armacao.getFotoUrl()
                 ))
                 .toList();
+    }
+
+    public String atualizarFotoArmacao(Long id, MultipartFile file) throws IOException {
+
+        Armacao armacao = ar.findById(id)
+                .orElseThrow(() -> new RuntimeException("Armação não encontrada"));
+
+        String imageUrl = imageService.uploadImage(file);
+
+        armacao.setFotoUrl(imageUrl);
+
+        ar.save(armacao);
+
+        return imageUrl;
     }
 
 
