@@ -36,4 +36,7 @@ public class Armacao {
 
     @Column(name = "preco_armacao")
     private Double preco;
+
+    @Column(name = "url_foto")
+    private String fotoUrl;
 }
