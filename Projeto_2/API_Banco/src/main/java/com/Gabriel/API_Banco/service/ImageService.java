@@ -33,6 +33,20 @@ public class ImageService {
         return uploadResult.get("secure_url").toString();
     }
 
+    public String uploadImage(MultipartFile file) throws IOException {
+
+        validarImagem(file);
+
+        Map uploadResult = cloudinary.uploader().upload(
+                file.getBytes(),
+                ObjectUtils.asMap(
+                        "folder", "profile_pictures"
+                )
+        );
+
+        return uploadResult.get("secure_url").toString();
+    }
+
     private void validarImagem(MultipartFile file) {
 
         if (file.isEmpty()) {
