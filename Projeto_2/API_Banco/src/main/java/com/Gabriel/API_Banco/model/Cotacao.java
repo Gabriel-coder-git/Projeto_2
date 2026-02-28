@@ -67,5 +67,8 @@ public class Cotacao {
     @Enumerated(EnumType.STRING)
     @Column(name = "status_cotacao")
     private StatusCotacao status;
+
+    @Column(name = "url_foto")
+    private String fotoUrl;
 }
 
