@@ -37,6 +37,9 @@ public class Lente {
 
     @Column(name = "preco_lente")
     private Double preco;
+
+    @Column(name = "url_foto")
+    private String fotoUrl;
 }
 
 
