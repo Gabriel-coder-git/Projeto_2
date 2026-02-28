@@ -1,5 +1,6 @@
 package com.Gabriel.API_Banco.service;
 import com.Gabriel.API_Banco.dto.EditarLojaDTO;
+import com.Gabriel.API_Banco.model.Armacao;
 import org.springframework.stereotype.Service;
 
 import com.Gabriel.API_Banco.dto.CriarLojaDTO;
@@ -8,7 +9,9 @@ import com.Gabriel.API_Banco.model.Usuario;
 import com.Gabriel.API_Banco.repository.LojaRepositorio;
 import com.Gabriel.API_Banco.repository.UsuarioRepositorio;
 import com.Gabriel.API_Banco.dto.ListarLojasDTO;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -17,10 +20,12 @@ public class LojaService {
 
     private final LojaRepositorio r;
     private final UsuarioRepositorio ur;
+    private final ImageService imageService;
 
-    public LojaService(LojaRepositorio r, UsuarioRepositorio ur){
+    public LojaService(LojaRepositorio r, UsuarioRepositorio ur, ImageService imageService){
         this.r = r;
         this.ur = ur;
+        this.imageService = imageService;
     }
 
     public Loja criarLoja(CriarLojaDTO dto) {
@@ -70,18 +75,33 @@ public class LojaService {
         return r.save(loja);
     }
 
-    public List<ListarLojasDTO> listarTodas() {
-        return r.findAll().stream()
-                .map(loja -> new ListarLojasDTO(
-                        loja.getId(),
-                        loja.getNome(),
-                        loja.getEmail(),
-                        loja.getCnpj(),
-                        loja.getCep(),
-                        loja.getEndereco(),
-                        loja.getDescricao()
-                ))
-                .toList();
+        public List<ListarLojasDTO> listarTodas() {
+            return r.findAll().stream()
+                    .map(loja -> new ListarLojasDTO(
+                            loja.getId(),
+                            loja.getNome(),
+                            loja.getEmail(),
+                            loja.getCnpj(),
+                            loja.getCep(),
+                            loja.getEndereco(),
+                            loja.getDescricao(),
+                            loja.getFotoUrl()
+                    ))
+                    .toList();
+        }
+
+    public String setarFotoLoja(Long id, MultipartFile file) throws IOException {
+
+        Loja loja = r.findById(id)
+                .orElseThrow(() -> new RuntimeException("Loja não encontrada"));
+
+        String imageUrl = imageService.uploadImage(file);
+
+        loja.setFotoUrl(imageUrl);
+
+        r.save(loja);
+
+        return imageUrl;
     }
 
 }
