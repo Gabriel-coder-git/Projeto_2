@@ -2,6 +2,7 @@ package com.Gabriel.API_Banco.controller;
 
 import com.Gabriel.API_Banco.dto.EditarLojaDTO;
 import com.Gabriel.API_Banco.dto.ListarLojasDTO;
+import com.Gabriel.API_Banco.service.ImageService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +11,9 @@ import com.Gabriel.API_Banco.dto.BuscarLojaDTO;
 import com.Gabriel.API_Banco.dto.CriarLojaDTO;
 import com.Gabriel.API_Banco.model.Loja;
 import com.Gabriel.API_Banco.service.LojaService;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
@@ -19,9 +22,11 @@ import java.util.List;
 public class LojaController {
 
     private final LojaService lojaService;
+    private final ImageService imageService;
 
-    public LojaController(LojaService lojaService) {
+    public LojaController(LojaService lojaService, ImageService imageService) {
         this.lojaService = lojaService;
+        this.imageService = imageService;
     }
 
     @PostMapping("/criarLoja")
@@ -60,6 +65,15 @@ public class LojaController {
     @GetMapping("/listarLojas")
     public ResponseEntity<List<ListarLojasDTO>> listarLojas() {
         return ResponseEntity.ok(lojaService.listarTodas());
+    }
+
+    @PostMapping("/{id}/foto")
+    public ResponseEntity<String> uploadFotoLoja(@PathVariable Long id,@RequestParam("file") MultipartFile file
+    ) throws IOException {
+
+        String url = lojaService.setarFotoLoja(id, file);
+
+        return ResponseEntity.ok(url);
     }
     
 }
